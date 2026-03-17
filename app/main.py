@@ -1,6 +1,5 @@
 class Person:
 
-    pass
     people = {}
 
     def __init__(self, name: str, age: int) -> None:
@@ -10,10 +9,8 @@ class Person:
 
 
 def create_person_list(people: list) -> list:
-    result = []
-    # primeira passada: criar instâncias
-    for peo in people:
-        result.append(Person(peo["name"], peo["age"]))
+    # primeira passada: criar instâncias com list comprehension
+    result = [Person(p["name"], p["age"]) for p in people]
     # segunda passada: Ligar cônjuges por referência
     for src, inst in zip(people, result):
         wife_name = src.get("wife")
