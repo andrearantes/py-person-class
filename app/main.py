@@ -9,9 +9,7 @@ class Person:
 
 
 def create_person_list(people: list) -> list:
-    # primeira passada: criar instâncias com list comprehension
     result = [Person(p["name"], p["age"]) for p in people]
-    # segunda passada: Ligar cônjuges por referência
     for src, inst in zip(people, result):
         wife_name = src.get("wife")
         husb_name = src.get("husband")
