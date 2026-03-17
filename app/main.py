@@ -5,16 +5,16 @@ class Person:
 
 
     def __init__(self, name: str, age: int) -> None:
-            self.name = name
-            self.age = age
-            Person.people[name] = self
+        self.name = name
+        self.age = age
+        Person.people[name] = self
 
 
 def create_person_list(people: list) -> list:
     result = []
     # primeira passada: criar instâncias
-    for p in people:
-        result.append(Person(p["name"], p["age"]))
+    for peo in people:
+        result.append(Person(peo["name"], peo["age"]))
     # segunda passada: Ligar cônjuges por referência
     for src, inst in zip(people, result):
         wife_name = src.get("wife")
