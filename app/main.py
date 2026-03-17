@@ -1,7 +1,7 @@
 class Person:
 
     pass
-    people_list = []
+    people = {}
 
 
     def __init__(self, name: str, age: int) -> None:
@@ -10,21 +10,17 @@ class Person:
             Person.people[name] = self
 
 
-    def create_person_list(people: list) -> list:
-        people_list = []
-        for index, person in enumerate(people):
-            current_person = Person(person["name"], person["age"])
-            if "wife" in person:
-                current_person.wife = person["wife"]
-            else:
-                current_person.husband = person["husband"]
-            people_list.append(current_person)
-
-        for person in people_list:
-            if hasattr(person, "wife"):
-                if person.wife != None:
-                    person.wife = Person.people[person.wife]
-            if hasattr(person, "husband"):
-                if person.husband != None:
-                    person.husband = Person.people[person.husband]
-        return people_list
+def create_person_list(people: list) -> list:
+    result = []
+    # primeira passada: criar instâncias
+    for p in people:
+        result.append(Person(p["name"], p["age"]))
+    # segunda passada: Ligar cônjuges por referência
+    for src, inst in zip(people, result):
+        wife_name = src.get("wife")
+        husb_name = src.get("husband")
+        if wife_name is not None:
+            inst.wife = Person.people[wife_name]
+        if husb_name is not None:
+            inst.husband = Person.people[husb_name]
+    return result
